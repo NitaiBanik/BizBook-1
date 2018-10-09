@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizBook", "BizBook\BizBook.csproj", "{9EB8B013-F9DF-4BCA-A186-C32AF2BF0A27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EB8B013-F9DF-4BCA-A186-C32AF2BF0A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB8B013-F9DF-4BCA-A186-C32AF2BF0A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB8B013-F9DF-4BCA-A186-C32AF2BF0A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB8B013-F9DF-4BCA-A186-C32AF2BF0A27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {728D30D1-F05F-43FD-9759-975D43386B3E}
+	EndGlobalSection
+EndGlobal
