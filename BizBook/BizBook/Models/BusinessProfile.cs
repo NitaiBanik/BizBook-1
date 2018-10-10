@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,6 +32,11 @@ namespace BizBook.Models
 
         [Display(Name = "Link to your website.")]
         public string Link { get; set; }
-        
+
+        [Display(Name = "Select 'Customer' or 'Employee'")]
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
+using System.Net;
 
 namespace BizBook.Controllers
 {
@@ -148,6 +149,26 @@ namespace BizBook.Controllers
         private bool BusinessProfileExists(int id)
         {
             return _context.BusinessProfile.Any(e => e.BusinessID == id);
+        }
+        public async Task<IActionResult> Map(int? id)
+        {
+            {
+                if (id == null)
+                {
+                    //not sure how to revise this for Core.  This code should alert user in thr case there is no user logged in.
+                    //return HttpStatusCode.BadRequest;
+                }
+                BusinessProfile businessProfile = _context.BusinessProfile.Find(id);
+                if (businessProfile == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.ApplicationUserId = new SelectList(_context.Users, "Id", "UserRole", businessProfile.ApplicationUser);
+                ViewBag.CustomerAddress = businessProfile.StreetAddress;
+                ViewBag.CustomerZip = businessProfile.CityStateZip;
+                return View(businessProfile);
+            }
+
         }
     }
 }
