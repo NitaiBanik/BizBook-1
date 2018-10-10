@@ -18,5 +18,7 @@ namespace BizBook.Data
 
         public DbSet<BizBook.Models.BusinessProfile> BusinessProfile { get; set; }
 
+        public DbSet<BizBook.Models.Consumer> Consumer { get; set; }
+
     }
 }
