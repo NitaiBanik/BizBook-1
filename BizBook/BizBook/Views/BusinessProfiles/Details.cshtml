@@ -1,0 +1,60 @@
+﻿@model BizBook.Models.BusinessProfile
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BusinessProfile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BusinessName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BusinessType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetAddress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StreetAddress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CityStateZip)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CityStateZip)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessBio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BusinessBio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Promotions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Promotions)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Link)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -16,5 +16,7 @@ namespace BizBook.Data
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
+        public DbSet<BizBook.Models.BusinessProfile> BusinessProfile { get; set; }
+
     }
 }
