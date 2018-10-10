@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
+using System.Security.Claims;
 
 namespace BizBook.Controllers
 {
@@ -61,6 +62,7 @@ namespace BizBook.Controllers
         {
             if (ModelState.IsValid)
             {
+                consumer.ApplicationUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(consumer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
