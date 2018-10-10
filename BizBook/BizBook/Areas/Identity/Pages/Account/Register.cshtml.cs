@@ -50,7 +50,7 @@ namespace BizBook.Areas.Identity.Pages.Account
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Business Name")]
+            [Display(Name = "Check If Business")]
             public bool isBusiness { get; set; }
 
             [Required]
