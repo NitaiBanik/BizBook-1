@@ -14,6 +14,6 @@ namespace BizBook.Models
         public string Name { get; set; }
 
         [NotMapped]
-        public bool isBusiness { get; set; }
+        public bool IsBusiness { get; set; }
     }
 }

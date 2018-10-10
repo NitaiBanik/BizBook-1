@@ -37,8 +37,9 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <div class="col-md-10">
-                @Html.RadioButtonFor(m => m.User, "Business", new { @class = "radio-inline" })@Html.Label("Business")
+            <div class="form-group">
+                <label asp-for="Input.IsBusiness"></label>
+                <input asp-for="Input.IsBusiness" type="checkbox" class="form-control" />
             </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
