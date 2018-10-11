@@ -51,7 +51,8 @@ namespace BizBook.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
 
             [Display(Name = "Check If Business")]
-            public bool isBusiness { get; set; }
+
+            public bool IsBusiness { get; set; }
 
             [Required]
             [EmailAddress]
@@ -80,7 +81,7 @@ namespace BizBook.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Name = Input.Name, PhoneNumber = Input.PhoneNumber };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, Name = Input.Name, PhoneNumber = Input.PhoneNumber, IsBusiness = Input.IsBusiness };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -93,7 +94,7 @@ namespace BizBook.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(StaticDetails.BusinessEndUser));
                     }
 
-                    if (Input.isBusiness)
+                    if (Input.IsBusiness)
                     {
                         await _userManager.AddToRoleAsync(user, StaticDetails.BusinessEndUser);
                     }
@@ -115,7 +116,17 @@ namespace BizBook.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+
+                    //redirect here
+                    if(Input.IsBusiness == true)
+                    {
+                        return RedirectToAction("Create", "BusinessProfiles");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Create", "Consumers");
+                    }
+                    //return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
                 {

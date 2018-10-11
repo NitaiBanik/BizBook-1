@@ -11,7 +11,9 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
 
+//>>>>>>> a107b6d44fb2110389cc321b21be41c5dce0980c
 namespace BizBook.Controllers
 {
     public class BusinessProfilesController : Controller
@@ -64,6 +66,7 @@ namespace BizBook.Controllers
         {
             if (ModelState.IsValid)
             {
+                businessProfile.ApplicationUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(businessProfile);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

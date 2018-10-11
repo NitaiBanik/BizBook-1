@@ -55,9 +55,11 @@
     </dl>
 </div>
 <div>
-    @*<label>@ViewData["fname"]</label></br>
-    <img src="@ViewData["fileLocation"]" />*@
+
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Map" asp-route-id="@Model.BusinessID">See Location</a> |
+    <a asp-action="Details" asp-route-id="@Model.BusinessID">Details</a> |
+    <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>
+    @*<a asp-action="Index">Back to List</a>*@
 </div>
