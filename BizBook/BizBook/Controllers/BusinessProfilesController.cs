@@ -8,16 +8,21 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
 using System.Net;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BizBook.Controllers
 {
     public class BusinessProfilesController : Controller
     {
+        private readonly IHostingEnvironment he;
         private readonly ApplicationDbContext _context;
 
-        public BusinessProfilesController(ApplicationDbContext context)
+        public BusinessProfilesController(ApplicationDbContext context,IHostingEnvironment e)
         {
             _context = context;
+            he = e;
         }
 
         // GET: BusinessProfiles
@@ -168,7 +173,30 @@ namespace BizBook.Controllers
                 ViewBag.CustomerZip = businessProfile.CityStateZip;
                 return View(businessProfile);
             }
+        }
+        public IActionResult UploadImage(string fullName, IFormFile pic, int? id)
+        {
 
+            {
+                if (id == null)
+                {
+                    //not sure how to revise this for Core.  This code should alert user in thr case there is no user logged in.
+                    //return HttpStatusCode.BadRequest;
+                }
+                //BusinessProfile businessProfile = _context.BusinessProfile.Find(id);
+                //if (businessProfile == null)
+                //{
+                //    return NotFound();
+                //}
+                ViewData["fname"] = fullName;
+                if (pic != null)
+                {
+                    var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                }
+                return View();
+            }
         }
     }
 }

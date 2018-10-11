@@ -62,8 +62,12 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BusinessID">Edit</a> |
+                <a asp-action="Map" asp-route-id="@item.BusinessID">See Location</a>
                 <a asp-action="Details" asp-route-id="@item.BusinessID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.BusinessID">Delete</a>
+                @*//new code*@
+                <a asp-action="UploadImage" asp-route-id="@item.BusinessID">Upload Images</a>
+
             </td>
         </tr>
 }
