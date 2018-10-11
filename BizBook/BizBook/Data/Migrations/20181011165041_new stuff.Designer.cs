@@ -4,41 +4,22 @@ using BizBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BizBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181011165041_new stuff")]
+    partial class newstuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BizBook.Models.Ad", b =>
-                {
-                    b.Property<int>("AdID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AdPost");
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<bool>("Carousel");
-
-                    b.Property<bool>("PaymentCollected");
-
-                    b.HasKey("AdID");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Ad");
-                });
 
             modelBuilder.Entity("BizBook.Models.BlogPost", b =>
                 {
@@ -49,7 +30,7 @@ namespace BizBook.Data.Migrations
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<DateTime?>("LastEdited");
+                    b.Property<DateTime>("LastEdited");
 
                     b.Property<DateTime>("PubDate");
 
@@ -287,13 +268,6 @@ namespace BizBook.Data.Migrations
                     b.ToTable("ApplicationUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
-            modelBuilder.Entity("BizBook.Models.Ad", b =>
-                {
-                    b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("BizBook.Models.BusinessProfile", b =>

@@ -1,3 +1,14 @@
 ﻿@{
-    Layout = "_Layout";
+    if (this.User.IsInRole("Consumer"))
+    {
+        Layout = "~/Views/Shared/_ConsumerView.cshtml";
+    }
+    else if (this.User.IsInRole("Business"))
+    {
+        Layout = "~/Views/Shared/_BusinessProfile.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }

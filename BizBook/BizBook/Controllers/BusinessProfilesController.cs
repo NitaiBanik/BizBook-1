@@ -14,18 +14,21 @@ using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 
-//>>>>>>> a107b6d44fb2110389cc321b21be41c5dce0980c
+
 namespace BizBook.Controllers
 {
     public class BusinessProfilesController : Controller
     {
         private readonly IHostingEnvironment he;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        
+        public BusinessProfilesController(ApplicationDbContext context,IHostingEnvironment e, UserManager<IdentityUser> userManager)
 
-        public BusinessProfilesController(ApplicationDbContext context,IHostingEnvironment e)
         {
             _context = context;
             he = e;
+            _userManager = userManager;
         }
 
         // GET: BusinessProfiles
@@ -37,19 +40,17 @@ namespace BizBook.Controllers
         // GET: BusinessProfiles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+
+
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.BusinessProfile
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            var businessProfile = await _context.BusinessProfile
-                .FirstOrDefaultAsync(m => m.BusinessID == id);
-            if (businessProfile == null)
-            {
-                return NotFound();
-            }
-
-            return View(businessProfile);
+            return View(user);
         }
 
         // GET: BusinessProfiles/Create
