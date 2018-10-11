@@ -47,10 +47,12 @@
             @Html.DisplayFor(model => model.Promotions)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Link)
+            @*str.Link(@model.Link)*@
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Link)
+            <a href="@Model.Link" target= "_blank">
+                @Model.Link
+            </a>
         </dd>
     </dl>
 </div>

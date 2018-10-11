@@ -20,6 +20,7 @@ namespace BizBook.Data
 
         public DbSet<BizBook.Models.Consumer> Consumer { get; set; }
         public DbSet<BlogPost> BlogPost { get; set; }
+        public DbSet<BizBook.Models.Ad> Ad { get; set; }
 
     }
 }
