@@ -47,10 +47,12 @@
             @Html.DisplayFor(model => model.Promotions)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Link)
+            @*str.Link(@model.Link)*@
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Link)
+            <a href="@Model.Link" target= "_blank">
+                @Model.Link
+            </a>
         </dd>
     </dl>
 </div>
@@ -59,7 +61,6 @@
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
     <a asp-action="Map" asp-route-id="@Model.BusinessID">See Location</a> |
-    <a asp-action="Details" asp-route-id="@Model.BusinessID">Details</a> |
     <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>
     @*<a asp-action="Index">Back to List</a>*@
 </div>

@@ -13,7 +13,6 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 
 //>>>>>>> a107b6d44fb2110389cc321b21be41c5dce0980c
 namespace BizBook.Controllers
@@ -22,18 +21,11 @@ namespace BizBook.Controllers
     {
         private readonly IHostingEnvironment he;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        //[Required]
-        //[EmailAddress]
-        //public string Email { get; set; }
-
-        public BusinessProfilesController(ApplicationDbContext context,IHostingEnvironment e,
-            UserManager<IdentityUser> userManager)
+        public BusinessProfilesController(ApplicationDbContext context,IHostingEnvironment e)
         {
             _context = context;
             he = e;
-            _userManager = userManager;
         }
 
         // GET: BusinessProfiles
@@ -45,15 +37,19 @@ namespace BizBook.Controllers
         // GET: BusinessProfiles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            var user = await _context.BusinessProfile
-                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
-
-            if (user == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            return View(user);
+
+            var businessProfile = await _context.BusinessProfile
+                .FirstOrDefaultAsync(m => m.BusinessID == id);
+            if (businessProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(businessProfile);
         }
 
         // GET: BusinessProfiles/Create
@@ -84,7 +80,6 @@ namespace BizBook.Controllers
         {
             if (id == null)
             {
-                
                 return NotFound();
             }
 
@@ -186,19 +181,6 @@ namespace BizBook.Controllers
         public IActionResult UploadImage(string fullName, IFormFile pic, int? id)
         {
 
-            {
-                //if (id == null)
-                //{
-                //    //not sure how to revise this for Core.  This code should alert user in thr case there is no user logged in.
-                //    //return HttpStatusCode.BadRequest;
-                //}
-                //BusinessProfile businessProfile = _context.BusinessProfile.Find(id);
-                ////if (businessProfile == null)
-                ////{
-                ////    return NotFound();
-                ////}
-                //ViewData["fname"] = fullName;
-              
                 if (pic == null)
                 {
                     return View();
@@ -219,7 +201,7 @@ namespace BizBook.Controllers
                     pic.CopyTo(new FileStream(fileName, FileMode.Create));
                     ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
-            }
+            
             return View(); 
         }
     }
