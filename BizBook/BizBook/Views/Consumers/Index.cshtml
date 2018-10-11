@@ -15,6 +15,9 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.BusinessName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
@@ -32,6 +35,9 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.BusinessName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
@@ -40,11 +46,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LastEdited)
             </td>
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.ConsumerID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ConsumerID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ConsumerID">Delete</a>
-            </td>*@
+            <td>
+                <a asp-action="Subscribe" asp-route-id="@item.ID">Subscribe</a>
+                @*<a asp-action="Details" asp-route-id="@item.ConsumerID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ConsumerID">Delete</a>*@
+            </td>
         </tr>
 }
     </tbody>

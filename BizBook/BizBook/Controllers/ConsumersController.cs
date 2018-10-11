@@ -26,8 +26,7 @@ namespace BizBook.Controllers
         // GET: Consumers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Consumer.Include(c => c.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.BlogPost.ToListAsync());
         }
 
         // GET: Consumers/Details/5

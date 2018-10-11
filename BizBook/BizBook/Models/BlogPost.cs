@@ -10,13 +10,10 @@ namespace BizBook.Models
     {
         [Key]
         public string ID { get; set; }
+        public string BusinessName { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime PubDate { get; set; }
         public DateTime? LastEdited { get; set; }
-        public bool IsPublished { get; set; } = true;
-
-
-
     }
 }
