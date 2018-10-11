@@ -13,6 +13,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using RestSharp;
+using RestSharp.Authenticators;
 
 //>>>>>>> a107b6d44fb2110389cc321b21be41c5dce0980c
 namespace BizBook.Controllers
@@ -203,6 +205,25 @@ namespace BizBook.Controllers
                 }
             
             return View(); 
+        }
+
+        public static IRestResponse SendSimpleMessage()
+        {
+            RestClient client = new RestClient();
+            client.BaseUrl = new Uri("https://api.mailgun.net/v3");
+            client.Authenticator =
+                new HttpBasicAuthenticator("api",
+                                            Key.mailgunKey);
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain", "sandbox704c2ec99b85406fa343c888c7f3507f.mailgun.org", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Excited User <mailgun@sandbox704c2ec99b85406fa343c888c7f3507f.mailgun.org>");
+            request.AddParameter("to", "svolbrecht@yahoo.com");
+            request.AddParameter("to", "YOU@sandbox704c2ec99b85406fa343c888c7f3507f.mailgun.org");
+            request.AddParameter("subject", "Hello");
+            request.AddParameter("text", "Testing some Mailgun awesomness!");
+            request.Method = Method.POST;
+            return client.Execute(request);
         }
     }
 }
