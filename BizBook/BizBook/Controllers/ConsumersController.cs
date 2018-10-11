@@ -152,6 +152,12 @@ namespace BizBook.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MyFeed()
+        {
+            return View(await _context.BlogPost.ToListAsync());
+        }
         private bool ConsumerExists(int id)
         {
             return _context.Consumer.Any(e => e.ConsumerID == id);

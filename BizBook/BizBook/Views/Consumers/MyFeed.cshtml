@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BizBook.Models.BlogPost>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>The BlogBook</h2>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusinessName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PubDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastEdited)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PubDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastEdited)
+                </td>
+                <td>
+                    <a asp-action="Unsubscribe" asp-route-id="@item.ID">Un subscribe</a>
+                    @*<a asp-action="Details" asp-route-id="@item.ConsumerID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ConsumerID">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
