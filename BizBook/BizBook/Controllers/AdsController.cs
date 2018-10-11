@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
+using Stripe;
 
 namespace BizBook.Controllers
 {
@@ -156,5 +157,11 @@ namespace BizBook.Controllers
         {
             return _context.Ad.Any(e => e.AdID == id);
         }
+
+
+        
+       
+    
+
     }
 }
