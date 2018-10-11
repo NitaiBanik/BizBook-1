@@ -29,12 +29,7 @@
         <dd>
             @Html.DisplayFor(model => model.CityStateZip)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUser)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
-        </dd>
+            @Html.HiddenFor(model => model.ApplicationUser.Id)        
     </dl>
 </div>
 <div>

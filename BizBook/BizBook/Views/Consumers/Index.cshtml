@@ -1,53 +1,50 @@
-﻿@model IEnumerable<BizBook.Models.Consumer>
-
+﻿@model IEnumerable<BizBook.Models.BlogPost>
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>The BlogBook</h2>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ConsumerName)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StreetAddress)
+                @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CityStateZip)
+                @Html.DisplayNameFor(model => model.PubDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                @Html.DisplayNameFor(model => model.LastEdited)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ConsumerName)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StreetAddress)
+                @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CityStateZip)
+                @Html.DisplayFor(modelItem => item.PubDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                @Html.DisplayFor(modelItem => item.LastEdited)
             </td>
-            <td>
+            @*<td>
                 <a asp-action="Edit" asp-route-id="@item.ConsumerID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ConsumerID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ConsumerID">Delete</a>
-            </td>
+            </td>*@
         </tr>
 }
     </tbody>

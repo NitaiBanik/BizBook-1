@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace BizBook.Controllers
 {
     public class ConsumersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ConsumersController(ApplicationDbContext context)
+        public ConsumersController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Consumers
@@ -30,20 +33,16 @@ namespace BizBook.Controllers
         // GET: Consumers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.Consumer
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            var consumer = await _context.Consumer
-                .Include(c => c.ApplicationUser)
-                .FirstOrDefaultAsync(m => m.ConsumerID == id);
-            if (consumer == null)
-            {
-                return NotFound();
-            }
-
-            return View(consumer);
+            return View(user);
+           
         }
 
         // GET: Consumers/Create

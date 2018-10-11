@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BizBook.Models;
 
 namespace BizBook
 {
@@ -41,6 +42,8 @@ namespace BizBook
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<GroupChatContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -70,6 +73,10 @@ namespace BizBook
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "pusher_auth",
+                    template: "pusher/auth",
+                    defaults: new { controller = "Auth", action = "ChannelAuth" });
             });
         }
     }
