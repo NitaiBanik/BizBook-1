@@ -19,10 +19,13 @@ namespace BizBook.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager,
+            ILogger<LoginModel> logger,
+            UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -136,7 +139,7 @@ namespace BizBook.Areas.Identity.Pages.Account
                 if (await _userManager.IsInRoleAsync(user, "Business"))
                 {
                     var userId = user.Id;
-                    return RedirectToAction("Index", "BusinessProfiles", new { Id = userId });
+                    return RedirectToAction("Details", "BusinessProfiles", new { Id = userId });
                 }
                 else
                 {
