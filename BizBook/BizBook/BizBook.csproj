@@ -8,7 +8,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
+<<<<<<< HEAD
     <PackageReference Include="PusherServer" Version="4.1.0" />
+=======
+    <PackageReference Include="Stripe.net" Version="19.10.0" />
+>>>>>>> 607a8b434531b2d797b7a6926272d96cac147878
   </ItemGroup>
 
   <ItemGroup>
