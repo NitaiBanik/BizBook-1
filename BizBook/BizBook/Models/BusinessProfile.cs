@@ -36,6 +36,9 @@ namespace BizBook.Models
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+        
+        [Display(Name = "Image 1")]
+        public string Image1 { get; set; }
 
     }
 }

@@ -69,9 +69,9 @@ namespace BizBook.Controllers
                 businessProfile.ApplicationUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(businessProfile);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction("Index");
             }
-            return View(businessProfile);
+            return View("Details", businessProfile);
         }
 
         // GET: BusinessProfiles/Edit/5
@@ -181,25 +181,40 @@ namespace BizBook.Controllers
         {
 
             {
-                if (id == null)
-                {
-                    //not sure how to revise this for Core.  This code should alert user in thr case there is no user logged in.
-                    //return HttpStatusCode.BadRequest;
-                }
-                //BusinessProfile businessProfile = _context.BusinessProfile.Find(id);
-                //if (businessProfile == null)
+                //if (id == null)
                 //{
-                //    return NotFound();
+                //    //not sure how to revise this for Core.  This code should alert user in thr case there is no user logged in.
+                //    //return HttpStatusCode.BadRequest;
                 //}
-                ViewData["fname"] = fullName;
+                //BusinessProfile businessProfile = _context.BusinessProfile.Find(id);
+                ////if (businessProfile == null)
+                ////{
+                ////    return NotFound();
+                ////}
+                //ViewData["fname"] = fullName;
+              
+                if (pic == null)
+                {
+                    return View();
+
+                }
+              
                 if (pic != null)
                 {
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+
+                    var userid= User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var businessProfile =  _context.BusinessProfile
+                        .FirstOrDefault(m => m.ApplicationUserId == userid);
+
+                    businessProfile.Image1 = fileName;
+                    _context.Update(businessProfile);
+                    _context.SaveChangesAsync();
                     pic.CopyTo(new FileStream(fileName, FileMode.Create));
                     ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
-                return View();
             }
+            return View(); 
         }
     }
 }
