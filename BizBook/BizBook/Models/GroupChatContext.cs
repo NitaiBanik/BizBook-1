@@ -13,8 +13,10 @@ namespace BizBook.Models
     //    {
     //    }
 
+
     //    public DbSet<Group> Groups { get; set; }
     //    public DbSet<Message> Message { get; set; }
     //    public DbSet<UserGroup> UserGroup { get; set; }
     //}
+
 }

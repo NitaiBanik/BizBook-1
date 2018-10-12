@@ -21,6 +21,9 @@ namespace BizBook.Data
         public DbSet<BizBook.Models.Consumer> Consumer { get; set; }
         public DbSet<BlogPost> BlogPost { get; set; }
         public DbSet<BizBook.Models.Ad> Ad { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Message> Message { get; set; }
+        public DbSet<UserGroup> UserGroup { get; set; }
 
     }
 }
