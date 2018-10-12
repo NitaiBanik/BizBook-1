@@ -12,7 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+<<<<<<< HEAD
 using Stripe;
+=======
+using BizBook.Models;
+>>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
 
 namespace BizBook
 {
@@ -42,6 +46,8 @@ namespace BizBook
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<GroupChatContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -74,6 +80,10 @@ namespace BizBook
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "pusher_auth",
+                    template: "pusher/auth",
+                    defaults: new { controller = "Auth", action = "ChannelAuth" });
             });
         }
     }

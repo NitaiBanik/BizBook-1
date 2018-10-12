@@ -54,7 +54,7 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Content,PubDate,LastEdited,IsPublished")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("ID,Title,Content,PubDate,LastEdited,BusinessName")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
             {

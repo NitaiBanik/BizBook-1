@@ -27,14 +27,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="BlogPosts" asp-action="Index" class="navbar-brand">BizBook</a>
+                <a asp-area="" asp-controller="Consumers" asp-action="Index" class="navbar-brand">BizBook</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Consumers" asp-action="Index">What's New</a></li>
+                    <li><a asp-area="" asp-controller="Consumers" asp-action="MyFeed">My Feed</a></li>
                     <li><a asp-area="" asp-controller="Consumers" asp-action="Details">Edit Your Info</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                   
+                    <li><a asp-area="" asp-controller="Chat" asp-action="Index">Contact</a></li>
+                   @*use this button to access favorited business*@
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
