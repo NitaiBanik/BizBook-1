@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 using Stripe;
-=======
 using BizBook.Models;
->>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
-
+//=======
+//>>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
 namespace BizBook
 {
     public class Startup

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BizBook.Data;
 using BizBook.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,9 @@ namespace BizBook.Controllers
     [Route("api/[controller]")]
     public class MessageController : Controller
     {
-        private readonly GroupChatContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public MessageController(GroupChatContext context, UserManager<ApplicationUser> userManager)
+        public MessageController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
