@@ -33,8 +33,7 @@ namespace BizBook.Controllers
         // GET: Ads
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Ad.Include(a => a.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View();
         }
 
         // GET: Ads/Details/5
@@ -245,14 +244,15 @@ namespace BizBook.Controllers
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
 
                     var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var ad = _context.Ad
-                        .FirstOrDefault(m => m.ApplicationUserId == userid);
+                    ////var ad = null;
+                    
+                    
 
-                    ad.CarouselImage = fileName;
-                    _context.Update(ad);
-                    _context.SaveChangesAsync();
-                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
-                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                    //ad.CarouselImage = fileName;
+                    //_context.Update(ad);
+                    //_context.SaveChangesAsync();
+                    //pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                    //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
             }
 
