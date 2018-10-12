@@ -87,13 +87,11 @@ namespace BizBook.Controllers
 
                 if (ad.Carousel == true)
                 {
-                    string test = nameof(UploadCarouselImage);
-                    return RedirectToAction("UploadCarouselImage");
-                    // return RedirectToAction(nameof(UploadCarouselImage));
+                    return RedirectToAction("Payment");
                 }
-                else if (ad.AdPost == true)
+                if (ad.AdPost == true)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Payment");
                 }
                 await _context.SaveChangesAsync();
             }
@@ -202,34 +200,36 @@ namespace BizBook.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Payment(string stripeEmail, string stripeToken)
-        {
-            var customers = new StripeCustomerService();
-            var charges = new StripeChargeService();
+        //[HttpPost]
+        //public IActionResult Payment(string stripeEmail, string stripeToken)
+        //{
+        //    var customers = new StripeCustomerService();
+        //    var charges = new StripeChargeService();
 
-            var customer = customers.Create(new StripeCustomerCreateOptions
-            {
-                Email = stripeEmail,
-                SourceToken = stripeToken
-            });
+        //    var customer = customers.Create(new StripeCustomerCreateOptions
+        //    {
+        //        Email = stripeEmail,
+        //        SourceToken = stripeToken
+        //    });
 
-            var charge = charges.Create(new StripeChargeCreateOptions
-            {
-                Amount = 50,
-                Description = "Sample Charge",
-                Currency = "usd",
-                CustomerId = customer.Id
-            });
+        //    var charge = charges.Create(new StripeChargeCreateOptions
+        //    {
+        //        Amount = 50,
+        //        Description = "Sample Charge",
+        //        Currency = "usd",
+        //        CustomerId = customer.Id
+        //    });
 
-            return View();
-        }
+            // set payment collected equal to true
+
+        //    return RedirectToAction("UploadCarouselImage");
+        //}
         public IActionResult UploadCarouselImage()
         {
             return View();
         }
-
-        [HttpPost]
+        
+            [HttpPost]
         public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id)
         {
             {
@@ -245,11 +245,11 @@ namespace BizBook.Controllers
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
 
                     var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var businessProfile = _context.BusinessProfile
+                    var ad = _context.Ad
                         .FirstOrDefault(m => m.ApplicationUserId == userid);
 
-                    businessProfile.Image1 = fileName;
-                    _context.Update(businessProfile);
+                    ad.CarouselImage = fileName;
+                    _context.Update(ad);
                     _context.SaveChangesAsync();
                     pic.CopyTo(new FileStream(fileName, FileMode.Create));
                     ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
