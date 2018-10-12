@@ -42,6 +42,29 @@ namespace BizBook.Controllers
         // GET: BusinessProfiles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var mvcName = typeof(Controller).Assembly.GetName();
+            var isMono = Type.GetType("Mono.Runtime") != null;
+
+            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor;
+            ViewData["Runtime"] = isMono ? "Mono" : ".NET";
+
+            ViewBag.Title = "Views Dot Net | A pusher - .Net Tutorial";
+
+            var visitors = 0;
+
+            if (System.IO.File.Exists("visitors.txt"))
+            {
+                string noOfVisitors = System.IO.File.ReadAllText("visitors.txt");
+                visitors = Int32.Parse(noOfVisitors);
+            }
+
+            ++visitors;
+
+            var visit_text = (visitors == 1) ? " view" : " views";
+            System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
+
+            ViewData["visitors"] = visitors;
+            ViewData["visitors_txt"] = visit_text;
 
 
             var userId = _userManager.GetUserId(HttpContext.User);
@@ -75,6 +98,7 @@ namespace BizBook.Controllers
                 await _context.SaveChangesAsync();
                 //return RedirectToAction("Index");
             }
+            SendSimpleMessage();
             return View("Details", businessProfile);
         }
 
@@ -204,7 +228,7 @@ namespace BizBook.Controllers
                     pic.CopyTo(new FileStream(fileName, FileMode.Create));
                     ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
-            
+            // test comment
             return View(); 
         }
 
@@ -220,7 +244,7 @@ namespace BizBook.Controllers
             request.Resource = "{domain}/messages";
             request.AddParameter("from", "Excited User <mailgun@sandbox704c2ec99b85406fa343c888c7f3507f.mailgun.org>");
             request.AddParameter("to", "svolbrecht@yahoo.com");
-            request.AddParameter("to", "YOU@sandbox704c2ec99b85406fa343c888c7f3507f.mailgun.org");
+            //request.AddParameter("to", "YOU@sandbox704c2ec99b85406fa343c888c7f3507f.mailgun.org");
             request.AddParameter("subject", "Hello");
             request.AddParameter("text", "Testing some Mailgun awesomness!");
             request.Method = Method.POST;
