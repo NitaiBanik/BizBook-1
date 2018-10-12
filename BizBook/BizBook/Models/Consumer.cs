@@ -21,6 +21,9 @@ namespace BizBook.Models
         [Display(Name = "City, State, Zip")]
         public string CityStateZip { get; set; }
 
+        [Display(Name = "Would you like to receive email notifications when new businesses join?")]
+        public bool IsSubscribed { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

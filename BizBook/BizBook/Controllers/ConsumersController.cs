@@ -28,6 +28,10 @@ namespace BizBook.Controllers
         {
             return View(await _context.BlogPost.ToListAsync());
         }
+        public async Task<IActionResult> BusinessIndex()
+        {
+            return View(await _context.BusinessProfile.ToListAsync());
+        }
 
         // GET: Consumers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -43,7 +47,16 @@ namespace BizBook.Controllers
             return View(user);
            
         }
+        public IActionResult BusinessDetails(int? id)
+        {
+            var businessProfile = _context.BusinessProfile.Where(b => b.BusinessID == id).FirstOrDefault();                
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            return View(businessProfile);
+        }
         // GET: Consumers/Create
         public IActionResult Create()
         {
@@ -72,18 +85,15 @@ namespace BizBook.Controllers
         // GET: Consumers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.Consumer
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            var consumer = await _context.Consumer.FindAsync(id);
-            if (consumer == null)
-            {
-                return NotFound();
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", consumer.ApplicationUserId);
-            return View(consumer);
+            return View(user);
         }
 
         // POST: Consumers/Edit/5
@@ -151,6 +161,11 @@ namespace BizBook.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        //public async Task<IActionResult> AddToMyFeed()
+        //{
+        //    var 
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]

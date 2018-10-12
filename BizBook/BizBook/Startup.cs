@@ -9,6 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stripe;
 using BizBook.Models;
+<<<<<<< HEAD
+=======
+using Stripe;
+using BizBook.Models;
+>>>>>>> 95f3b7819c31db91df6c91dc647798f134aad104
 
 namespace BizBook
 {
@@ -38,8 +43,8 @@ namespace BizBook
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddDbContext<GroupChatContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<GroupChatContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
