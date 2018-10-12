@@ -1,16 +1,19 @@
-﻿@using Microsoft.Extensions.Options
-@inject IOptions<StripeSettings> Stripe
+﻿@*@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe*@
 
 @{
     ViewData["Title"] = "View";
     @*Layout = "UploadCarouselImage";*@
 }
 
-<h2>Upload Carousel Image</h2>
+<h2>You successfully paid <strong>$50.00</strong></h2>
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+<h2>Upload An Image</h2>
+
+<label>@ViewData["fname"]</label></br>
+<img src="@ViewData["fileLocation"]" />
+
+
 @{
 
     <form method="post" action="/BusinessProfiles/UploadImage" enctype="multipart/form-data">
@@ -20,24 +23,6 @@
     </form>
 }
 
-<h2>Upload An Image</h2>
-
-<label>@ViewData["fname"]</label></br>
-<img src="@ViewData["fileLocation"]" />
-
-<h2> Please Pay Here</h2>
-
-<form action="/Home/Charge" method="POST">
-    <article>
-        <label>Amount: $50.00</label>
-    </article>
-    <script src="//checkout.stripe.com/v2/checkout.js"
-            class="stripe-button"
-            data-key="@Stripe.Value.PublishableKey"
-            data-locale="auto"
-            data-description="Sample Charge"
-            data-amount="500">
-    </script>
-</form>
-
-<h2>You successfully paid <strong>$50.00</strong></h2>
+    <div class="form-group">
+        <input type="submit" value="Save Image" class="btn btn-default" />
+    </div>

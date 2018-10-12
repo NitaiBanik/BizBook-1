@@ -9,8 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stripe;
 using BizBook.Models;
-using Stripe;
-using BizBook.Models;
+
 
 namespace BizBook
 {

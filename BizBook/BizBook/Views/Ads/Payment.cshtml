@@ -1,25 +1,16 @@
 ﻿@using Microsoft.Extensions.Options
 @inject IOptions<StripeSettings> Stripe
 
-@{
-    ViewData["Title"] = "Payment";
-    Layout = "Payment";
-}
-
-<h2>Payment</h2>
-
-
-<form action="/Home/Charge" method="POST">
+<form action="UploadCarouselImage" method="POST">
     <article>
-        <label>Amount: $5.00</label>
+        <label>Amount: $50.00</label>
     </article>
     <script src="//checkout.stripe.com/v2/checkout.js"
             class="stripe-button"
             data-key="@Stripe.Value.PublishableKey"
             data-locale="auto"
             data-description="Sample Charge"
-            data-amount="500">
+            data-amount="5000">
     </script>
 </form>
 
-<h2>You successfully paid <strong>$5.00</strong></h2>
