@@ -7,18 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-<<<<<<< HEAD
 using Stripe;
 using BizBook.Models;
-//>>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
 
-=======
-//<<<<<<< HEAD
-using Stripe;
-using BizBook.Models;
-//=======
-//>>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
->>>>>>> 5e7d4df5a9457fb65b31b49eb6796a3f8c471ade
 namespace BizBook
 {
     public class Startup

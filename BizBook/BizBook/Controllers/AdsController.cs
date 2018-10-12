@@ -216,7 +216,7 @@ namespace BizBook.Controllers
 
             var charge = charges.Create(new StripeChargeCreateOptions
             {
-                Amount = 500,
+                Amount = 50,
                 Description = "Sample Charge",
                 Currency = "usd",
                 CustomerId = customer.Id
