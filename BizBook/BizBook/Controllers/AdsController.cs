@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 
 namespace BizBook.Controllers
 {
@@ -19,12 +20,14 @@ namespace BizBook.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
+        private readonly UserManager<IdentityUser> _userManager;
 
 
-        public AdsController(ApplicationDbContext context, IHostingEnvironment e)
+        public AdsController(ApplicationDbContext context, IHostingEnvironment e, UserManager<IdentityUser> userManager)
         {
             _context = context;
             he = e;
+            _userManager = userManager;
         }
 
         // GET: Ads
@@ -56,6 +59,7 @@ namespace BizBook.Controllers
         // GET: Ads/Create
         public IActionResult Create()
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
@@ -65,15 +69,35 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AdID,AdPost,Carousel,PaymentCollected,ApplicationUserId")] Ad ad)
+        public async Task<IActionResult> Create([Bind("AdID,AdPost,Carousel,ApplicationUserId")] Ad ad)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(ad);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            var userId = _userManager.GetUserId(HttpContext.User);
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ad.ApplicationUserId);
+            ad.ApplicationUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _context.Add(ad);
+            await _context.SaveChangesAsync();
+
+            var errors = ModelState
+            .Where(x => x.Value.Errors.Count > 0)
+            .Select(x => new { x.Key, x.Value.Errors })
+            .ToArray();
+
+            if (ModelState.IsValid) { 
+                //saveChanges
+
+                if (ad.Carousel == true)
+                {
+                    string test = nameof(UploadCarouselImage);
+                    return RedirectToAction("UploadCarouselImage");
+                    // return RedirectToAction(nameof(UploadCarouselImage));
+                }
+                else if (ad.AdPost == true)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                await _context.SaveChangesAsync();
+            }
+            
             return View(ad);
         }
 
@@ -91,7 +115,16 @@ namespace BizBook.Controllers
                 return NotFound();
             }
             ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ad.ApplicationUserId);
-            return View(ad);
+            _context.Update(ad);
+            await _context.SaveChangesAsync();
+            if (ad.Carousel == true)
+            {
+                return View("UploadCarouselImage");
+            }
+
+            else {
+                return View(ad);
+            }
         }
 
         // POST: Ads/Edit/5
@@ -191,13 +224,13 @@ namespace BizBook.Controllers
 
             return View();
         }
-        public IActionResult UploadImage()
+        public IActionResult UploadCarouselImage()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult UploadImage(string fullName, IFormFile pic, int? id)
+        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id)
         {
             {
 

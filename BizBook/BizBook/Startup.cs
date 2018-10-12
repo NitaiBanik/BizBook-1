@@ -12,11 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-<<<<<<< HEAD
 using Stripe;
-=======
 using BizBook.Models;
->>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
+//>>>>>>> b7d3dd766cd32f627413ef3cc50fb3cf5c284d99
 
 namespace BizBook
 {
