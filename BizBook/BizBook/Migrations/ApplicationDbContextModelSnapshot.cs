@@ -4,16 +4,14 @@ using BizBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BizBook.Data.Migrations
+namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181010122423_stuff")]
-    partial class stuff
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,11 +19,56 @@ namespace BizBook.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BizBook.Models.Ad", b =>
+                {
+                    b.Property<int>("AdID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AdPost");
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<bool>("Carousel");
+
+                    b.Property<string>("CarouselImage");
+
+                    b.Property<bool>("PaymentCollected");
+
+                    b.HasKey("AdID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Ad");
+                });
+
+            modelBuilder.Entity("BizBook.Models.BlogPost", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BusinessName");
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime?>("LastEdited");
+
+                    b.Property<DateTime>("PubDate");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BlogPost");
+                });
+
             modelBuilder.Entity("BizBook.Models.BusinessProfile", b =>
                 {
                     b.Property<int>("BusinessID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("BusinessBio");
 
@@ -35,6 +78,8 @@ namespace BizBook.Data.Migrations
 
                     b.Property<string>("CityStateZip");
 
+                    b.Property<string>("Image1");
+
                     b.Property<string>("Link");
 
                     b.Property<string>("Promotions");
@@ -43,7 +88,77 @@ namespace BizBook.Data.Migrations
 
                     b.HasKey("BusinessID");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.ToTable("BusinessProfile");
+                });
+
+            modelBuilder.Entity("BizBook.Models.Consumer", b =>
+                {
+                    b.Property<int>("ConsumerID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<string>("CityStateZip");
+
+                    b.Property<string>("ConsumerName");
+
+                    b.Property<bool>("IsSubscribed");
+
+                    b.Property<string>("StreetAddress");
+
+                    b.HasKey("ConsumerID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Consumer");
+                });
+
+            modelBuilder.Entity("BizBook.Models.Group", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GroupName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("BizBook.Models.Message", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddedBy");
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<string>("message");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Message");
+                });
+
+            modelBuilder.Entity("BizBook.Models.UserGroup", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("UserGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -221,6 +336,27 @@ namespace BizBook.Data.Migrations
                     b.ToTable("ApplicationUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("BizBook.Models.Ad", b =>
+                {
+                    b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BizBook.Models.BusinessProfile", b =>
+                {
+                    b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BizBook.Models.Consumer", b =>
+                {
+                    b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

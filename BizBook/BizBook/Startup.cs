@@ -40,8 +40,6 @@ namespace BizBook
                 .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            //services.AddDbContext<GroupChatContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
