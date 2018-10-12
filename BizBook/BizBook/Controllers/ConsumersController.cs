@@ -26,8 +26,7 @@ namespace BizBook.Controllers
         // GET: Consumers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Consumer.Include(c => c.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.BlogPost.ToListAsync());
         }
 
         // GET: Consumers/Details/5
@@ -153,6 +152,12 @@ namespace BizBook.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MyFeed()
+        {
+            return View(await _context.BlogPost.ToListAsync());
+        }
         private bool ConsumerExists(int id)
         {
             return _context.Consumer.Any(e => e.ConsumerID == id);
