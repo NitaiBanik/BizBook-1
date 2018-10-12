@@ -20,6 +20,8 @@ namespace BizBook.Models
 
         public bool PaymentCollected { get; set; }
 
+        public string CarouselImage { get; set; }
+
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

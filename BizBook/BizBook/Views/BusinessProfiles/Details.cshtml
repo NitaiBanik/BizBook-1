@@ -61,7 +61,25 @@
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
     <a asp-action="Map" asp-route-id="@Model.BusinessID">See Location</a> |
+<<<<<<< HEAD
     <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
     <a asp-action="Ads.Create" asp-route-id="@Model.BusinessID"> Advertise </a>
+=======
+    <a asp-action="UploadImage" asp-route-id="@Model.BusinessID">Upload Image</a>|
+    <a asp-action="Details" asp-route-id="@Model.BusinessID">Details</a> |
+    <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a> |
+    <a asp-action="Ads/edit" asp-route-id="@Model.BusinessID"> Advertise </a>
+
+>>>>>>> 377626b0211cb9fa483829c15c20acfa0e28773a
     @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-left">
+                <p> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </p>
+            </div>
+        </div>
+    </div>
 </div>

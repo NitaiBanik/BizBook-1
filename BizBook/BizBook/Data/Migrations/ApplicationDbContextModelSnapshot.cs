@@ -31,6 +31,8 @@ namespace BizBook.Data.Migrations
 
                     b.Property<bool>("Carousel");
 
+                    b.Property<string>("CarouselImage");
+
                     b.Property<bool>("PaymentCollected");
 
                     b.HasKey("AdID");

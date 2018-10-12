@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BizBook.Data;
 using BizBook.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,10 @@ namespace BizBook.Controllers
     public class ChatController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly GroupChatContext _GroupContext;
+        private readonly ApplicationDbContext _GroupContext;
         public ChatController(
           UserManager<ApplicationUser> userManager,
-          GroupChatContext context
+          ApplicationDbContext context
           )
         {
             _userManager = userManager;
