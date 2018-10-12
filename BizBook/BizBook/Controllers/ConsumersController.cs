@@ -69,7 +69,7 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ConsumerID,ConsumerName,StreetAddress,CityStateZip,ApplicationUserId")] Consumer consumer)
+        public async Task<IActionResult> Create([Bind("ConsumerID,ConsumerName,StreetAddress,CityStateZip,ApplicationUserId,IsSubscribed")] Consumer consumer)
         {
             if (ModelState.IsValid)
             {
