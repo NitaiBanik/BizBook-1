@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BizBook.Models.BusinessProfile>
+@{
+    ViewData["Title"] = "BusinessIndex";
+}
+
+<h2>BusinessIndex</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BusinessName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.BusinessType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StreetAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityStateZip)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.BusinessBio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Promotions)
+            </th>*@
+            <th></th>
+        <tr />
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StreetAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityStateZip)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.BusinessBio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Promotions)
+                </td>*@
+                <td>
+                    @*<a asp-action="Subscribe" asp-route-id="@item.BusinessID">Subscribe</a>*@
+                    <a asp-action="BusinessDetails" asp-route-id="@item.BusinessID">View Profile</a>
+                    @*<a asp-action="Delete" asp-route-id="@item.ConsumerID">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

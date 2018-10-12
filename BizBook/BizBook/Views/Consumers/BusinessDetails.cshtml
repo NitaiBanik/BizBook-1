@@ -1,7 +1,7 @@
 ﻿@model BizBook.Models.BusinessProfile
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "BusinessDetails";
 }
 
 <h2>Details</h2>
@@ -50,7 +50,7 @@
             @*str.Link(@model.Link)*@
         </dt>
         <dd>
-            <a href="@Model.Link" target= "_blank">
+            <a href="@Model.Link" target="_blank">
                 @Model.Link
             </a>
         </dd>
@@ -59,9 +59,9 @@
 <div>
 
 
-    <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
+    <a asp-action="Details" asp-route-id="@Model.BusinessID">View Profile</a> |
     <a asp-action="Map" asp-route-id="@Model.BusinessID">See Location</a> |
-    <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
-    <a asp-action="Ads.Create" asp-route-id="@Model.BusinessID"> Advertise </a>
+    @*<a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
+    <a asp-action="Ads.Create" asp-route-id="@Model.BusinessID"> Advertise </a>*@
     @*<a asp-action="Index">Back to List</a>*@
 </div>
