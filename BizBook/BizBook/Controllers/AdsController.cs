@@ -8,16 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
 using Stripe;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BizBook.Controllers
 {
     public class AdsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment he;
 
-        public AdsController(ApplicationDbContext context)
+
+        public AdsController(ApplicationDbContext context, IHostingEnvironment e)
         {
             _context = context;
+            he = e;
         }
 
         // GET: Ads
@@ -157,11 +164,67 @@ namespace BizBook.Controllers
         {
             return _context.Ad.Any(e => e.AdID == id);
         }
+        public IActionResult Payment()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Payment(string stripeEmail, string stripeToken)
+        {
+            var customers = new StripeCustomerService();
+            var charges = new StripeChargeService();
 
-        
-       
-    
+            var customer = customers.Create(new StripeCustomerCreateOptions
+            {
+                Email = stripeEmail,
+                SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new StripeChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Sample Charge",
+                Currency = "usd",
+                CustomerId = customer.Id
+            });
+
+            return View();
+        }
+        public IActionResult UploadImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UploadImage(string fullName, IFormFile pic, int? id)
+        {
+            {
+
+                if (pic == null)
+                {
+                    return View();
+
+                }
+
+                if (pic != null)
+                {
+                    var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+
+                    var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var businessProfile = _context.BusinessProfile
+                        .FirstOrDefault(m => m.ApplicationUserId == userid);
+
+                    businessProfile.Image1 = fileName;
+                    _context.Update(businessProfile);
+                    _context.SaveChangesAsync();
+                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                }
+            }
+
+            return View();
+        }
 
     }
 }
