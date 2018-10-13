@@ -229,7 +229,7 @@ namespace BizBook.Controllers
         }
         
             [HttpPost]
-        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id)
+        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id, Ad ad)
         {
             {
 
@@ -244,15 +244,12 @@ namespace BizBook.Controllers
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
 
                     var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    ////var ad = null;
-                    
-                    
 
-                    //ad.CarouselImage = fileName;
-                    //_context.Update(ad);
-                    //_context.SaveChangesAsync();
-                    //pic.CopyTo(new FileStream(fileName, FileMode.Create));
-                    //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                    ad.CarouselImage = fileName;
+                    _context.Update(ad);
+                    _context.SaveChangesAsync();
+                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
             }
 
