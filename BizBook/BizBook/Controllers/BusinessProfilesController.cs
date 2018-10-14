@@ -125,6 +125,7 @@ namespace BizBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link")] BusinessProfile businessProfile)
         {
+
             if (id != businessProfile.BusinessID)
             {
                 return NotFound();
