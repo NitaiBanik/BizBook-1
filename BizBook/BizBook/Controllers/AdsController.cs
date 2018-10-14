@@ -21,6 +21,7 @@ namespace BizBook.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
         private readonly UserManager<IdentityUser> _userManager;
+        public string newHomePageImage;
 
 
         public AdsController(ApplicationDbContext context, IHostingEnvironment e, UserManager<IdentityUser> userManager)
@@ -231,7 +232,7 @@ namespace BizBook.Controllers
         }
         
             [HttpPost]
-        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id, Ad ad)
+        public async Task<IActionResult> UploadCarouselImage(string fullName, IFormFile pic, int ?id)
         {
             {
 
@@ -242,19 +243,33 @@ namespace BizBook.Controllers
                 }
 
                 if (pic != null)
+              
                 {
+
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
+
+
 
                     var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var ad = _context.Ad
+                        .FirstOrDefault(m => m.ApplicationUserId == userid);
 
+                    ad.PaymentCollected = true;
                     ad.CarouselImage = fileName;
+                    
                     _context.Update(ad);
-                    _context.SaveChangesAsync();
-                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
-                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                   
+                    await _context.SaveChangesAsync();
+
+                    newHomePageImage = ad.CarouselImage;
+
+
+                    //pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                    //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+
                 }
             }
-
             return View();
         }
 
