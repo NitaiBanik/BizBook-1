@@ -105,17 +105,19 @@ namespace BizBook.Controllers
         // GET: BusinessProfiles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.BusinessProfile
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            //var businessProfile = await _context.BusinessProfile.FindAsync(id);
+            //if (businessProfile == null)
+            //{
+            //    return NotFound();
+            //}
+            if (user == null)
             {
                 return NotFound();
             }
-
-            var businessProfile = await _context.BusinessProfile.FindAsync(id);
-            if (businessProfile == null)
-            {
-                return NotFound();
-            }
-            return View(businessProfile);
+            return View(user);
         }
 
         // POST: BusinessProfiles/Edit/5
@@ -123,12 +125,12 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link")] BusinessProfile businessProfile)
+        public async Task<IActionResult> Edit([Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link,ApplicationUserId")] BusinessProfile businessProfile)
         {
-            if (id != businessProfile.BusinessID)
-            {
-                return NotFound();
-            }
+            //if (id != businessProfile.BusinessID)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
@@ -148,7 +150,7 @@ namespace BizBook.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             return View(businessProfile);
         }
