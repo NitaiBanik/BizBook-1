@@ -86,10 +86,12 @@ namespace BizBook.Controllers
 
                 if (ad.Carousel == true)
                 {
+                    //create action for carousel payment 
                     return RedirectToAction("Payment");
                 }
                 if (ad.AdPost == true)
                 {
+                    //create action for adpost payment
                     return RedirectToAction("Payment");
                 }
                 await _context.SaveChangesAsync();
