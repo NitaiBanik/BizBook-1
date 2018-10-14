@@ -105,16 +105,22 @@ namespace BizBook.Controllers
         // GET: BusinessProfiles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-
-            var userId = _userManager.GetUserId(HttpContext.User);
-            var user = await _context.BusinessProfile
-                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
             //if (id == null)
             //{
             //    return NotFound();
             //}
 
            
+
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.BusinessProfile
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            //var businessProfile = await _context.BusinessProfile.FindAsync(id);
+            //if (businessProfile == null)
+            //{
+            //    return NotFound();
+            //}
+
             if (user == null)
             {
                 return NotFound();
@@ -127,13 +133,12 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link")] BusinessProfile businessProfile)
+        public async Task<IActionResult> Edit([Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link,ApplicationUserId")] BusinessProfile businessProfile)
         {
-
-            if (businessProfile.BusinessID != businessProfile.BusinessID)
-            {
-                return NotFound();
-            }
+            //if (id != businessProfile.BusinessID)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
