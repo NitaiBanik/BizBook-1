@@ -331,3 +331,6 @@ ASALocalRun/
 
 #MapAPIKey
 Key.cs
+*.jpg
+BizBook/BizBook/visitors.txt
+BizBook/BizBook/Migrations/GroupChatContextModelSnapshot.cs

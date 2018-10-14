@@ -33,8 +33,7 @@ namespace BizBook.Controllers
         // GET: Ads
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Ad.Include(a => a.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View();
         }
 
         // GET: Ads/Details/5
@@ -230,7 +229,7 @@ namespace BizBook.Controllers
         }
         
             [HttpPost]
-        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id)
+        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int? id, Ad ad)
         {
             {
 
@@ -245,8 +244,6 @@ namespace BizBook.Controllers
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
 
                     var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var ad = _context.Ad
-                        .FirstOrDefault(m => m.ApplicationUserId == userid);
 
                     ad.CarouselImage = fileName;
                     _context.Update(ad);
