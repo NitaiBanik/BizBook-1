@@ -56,9 +56,15 @@
         </dd>
     </dl>
 </div>
-<div>
-    @*<img src="@Image1>*@
-</div>
+
+<dd>
+    @*<img src="~/38139422_10102593859577006_6086567643161034752_n.jpg" height="200px" width="300px" />*@
+    @Model.Image1
+
+            <img src="~/@Model.Image1" height="200px" width="300px" />
+
+</dd>
+
 <div>
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |

@@ -15,6 +15,7 @@ namespace BizBook.Controllers
 
         public IActionResult Index()
         {
+            //pass ad object here that has ad property
             return View();
         }
 

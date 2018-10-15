@@ -125,7 +125,7 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link,ApplicationUserId")] BusinessProfile businessProfile)
+        public async Task<IActionResult> Edit([Bind("BusinessID,BusinessName,BusinessType,StreetAddress,CityStateZip,BusinessBio,Promotions,Link,ApplicationUserId,Image1")] BusinessProfile businessProfile)
         {
             //if (id != businessProfile.BusinessID)
             //{
@@ -218,8 +218,11 @@ namespace BizBook.Controllers
               
                 if (pic != null)
                 {
-                    var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
-                pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                    var fullPath = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+                
+                var fileName = pic.FileName;
+
+                pic.CopyTo(new FileStream(fullPath, FileMode.Create));
 
                 var userid= User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var businessProfile =  _context.BusinessProfile
@@ -231,7 +234,7 @@ namespace BizBook.Controllers
 
                 ViewBag.ProfileImage = businessProfile.Image1;
                
-                    //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
             // test comment
             return View(); 
