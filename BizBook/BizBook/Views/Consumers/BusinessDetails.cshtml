@@ -58,8 +58,9 @@
 </div>
 <div>
 
+    @*make save button*@
+    <a asp-action="AddSavedBusiness" asp-route-id="@Model.BusinessID">Follow This Business</a> |
 
-    <a asp-action="Details" asp-route-id="@Model.BusinessID">View Profile</a> |
     <a asp-action="Map" asp-route-id="@Model.BusinessID">See Location</a> |
     @*<a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
     <a asp-action="Ads.Create" asp-route-id="@Model.BusinessID"> Advertise </a>*@

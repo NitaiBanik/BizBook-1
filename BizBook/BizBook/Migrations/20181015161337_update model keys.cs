@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BizBook.Migrations
 {
-    public partial class retable : Migration
+    public partial class updatemodelkeys : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,22 +47,6 @@ namespace BizBook.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BlogPost",
-                columns: table => new
-                {
-                    ID = table.Column<string>(nullable: false),
-                    BusinessName = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true),
-                    PubDate = table.Column<DateTime>(nullable: false),
-                    LastEdited = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BlogPost", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,6 +221,33 @@ namespace BizBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BusinessProfile",
+                columns: table => new
+                {
+                    BusinessID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BusinessName = table.Column<string>(nullable: true),
+                    BusinessType = table.Column<string>(nullable: true),
+                    StreetAddress = table.Column<string>(nullable: true),
+                    CityStateZip = table.Column<string>(nullable: true),
+                    BusinessBio = table.Column<string>(nullable: true),
+                    Promotions = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    Image1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessProfile", x => x.BusinessID);
+                    table.ForeignKey(
+                        name: "FK_BusinessProfile_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Consumer",
                 columns: table => new
                 {
@@ -260,37 +271,53 @@ namespace BizBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BusinessProfile",
+                name: "BlogPost",
                 columns: table => new
                 {
-                    BusinessID = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BusinessName = table.Column<string>(nullable: true),
-                    BusinessType = table.Column<string>(nullable: true),
-                    StreetAddress = table.Column<string>(nullable: true),
-                    CityStateZip = table.Column<string>(nullable: true),
-                    BusinessBio = table.Column<string>(nullable: true),
-                    Promotions = table.Column<string>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    Image1 = table.Column<string>(nullable: true),
-                    ConsumerID = table.Column<int>(nullable: true)
+                    BusinessId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    PubDate = table.Column<DateTime>(nullable: false),
+                    LastEdited = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusinessProfile", x => x.BusinessID);
+                    table.PrimaryKey("PK_BlogPost", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_BusinessProfile_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_BlogPost_BusinessProfile_BusinessId",
+                        column: x => x.BusinessId,
+                        principalTable: "BusinessProfile",
+                        principalColumn: "BusinessID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SavedBusiness",
+                columns: table => new
+                {
+                    SavedBusinessId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BusinessId = table.Column<int>(nullable: false),
+                    ConsumerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SavedBusiness", x => x.SavedBusinessId);
                     table.ForeignKey(
-                        name: "FK_BusinessProfile_Consumer_ConsumerID",
-                        column: x => x.ConsumerID,
+                        name: "FK_SavedBusiness_BusinessProfile_BusinessId",
+                        column: x => x.BusinessId,
+                        principalTable: "BusinessProfile",
+                        principalColumn: "BusinessID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SavedBusiness_Consumer_ConsumerId",
+                        column: x => x.ConsumerId,
                         principalTable: "Consumer",
                         principalColumn: "ConsumerID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -338,19 +365,29 @@ namespace BizBook.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BlogPost_BusinessId",
+                table: "BlogPost",
+                column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BusinessProfile_ApplicationUserId",
                 table: "BusinessProfile",
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusinessProfile_ConsumerID",
-                table: "BusinessProfile",
-                column: "ConsumerID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Consumer_ApplicationUserId",
                 table: "Consumer",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SavedBusiness_BusinessId",
+                table: "SavedBusiness",
+                column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SavedBusiness_ConsumerId",
+                table: "SavedBusiness",
+                column: "ConsumerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -377,19 +414,22 @@ namespace BizBook.Migrations
                 name: "BlogPost");
 
             migrationBuilder.DropTable(
-                name: "BusinessProfile");
-
-            migrationBuilder.DropTable(
                 name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Message");
 
             migrationBuilder.DropTable(
+                name: "SavedBusiness");
+
+            migrationBuilder.DropTable(
                 name: "UserGroup");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "BusinessProfile");
 
             migrationBuilder.DropTable(
                 name: "Consumer");

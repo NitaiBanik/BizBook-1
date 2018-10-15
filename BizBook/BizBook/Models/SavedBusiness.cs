@@ -12,16 +12,16 @@ namespace BizBook.Models
         [Key]
         public int SavedBusinessId { get; set; }
 
-        //[Display(Name = "Saved Businesses")]
-        //public List<BusinessProfile> SavedBusinesses { get; set; }
-
         [ForeignKey("BusinessProfile")]
-        [Display(Name = "Business Profile")]
         public int BusinessId { get; set; }
         public BusinessProfile businessProfile { get; set; }
 
         [ForeignKey("Consumer")]
         public int ConsumerId { get; set; }
         public Consumer Consumer { get; set; }
+
+        //[ForeignKey("BlogPost")]
+        //public int BlogPostId { get; set; }
+        //public BlogPost BlogPost { get; set; }
     }
 }

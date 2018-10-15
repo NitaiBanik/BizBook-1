@@ -161,6 +161,7 @@ namespace BizBook.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         [HttpPost]
         //public async Task<IActionResult> AddToMyFeed()
         //{
@@ -173,6 +174,7 @@ namespace BizBook.Controllers
         {
             return View(await _context.BlogPost.ToListAsync());
         }
+
         private bool ConsumerExists(int id)
         {
             return _context.Consumer.Any(e => e.ConsumerID == id);
@@ -184,8 +186,29 @@ namespace BizBook.Controllers
             var user = await _context.Consumer
                 .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
             var consumerId = user.ConsumerID;
-            return View(await _context.SavedBusiness.Where(c => c.ConsumerId == consumerId).ToListAsync());
+            var savedBusinessId = await _context.SavedBusiness.Include(m => m.businessProfile).Where(c => c.ConsumerId == consumerId).ToListAsync();
+            return View(savedBusinessId);
         }
 
+        public async Task<IActionResult> AddSavedBusiness(int id)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.Consumer
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            var consumerId = user.ConsumerID;
+            var savedBusiness = new SavedBusiness();
+            savedBusiness.BusinessId = id;
+            savedBusiness.ConsumerId = consumerId;
+            _context.Add(savedBusiness);
+            await _context.SaveChangesAsync();
+            return View("BusinessDetails", id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
     }
 }
