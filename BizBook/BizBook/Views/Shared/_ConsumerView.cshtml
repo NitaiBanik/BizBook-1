@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BizBook</title>
+    
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -35,8 +36,13 @@
                     <li><a asp-area="" asp-controller="Consumers" asp-action="MyFeed">My Feed</a></li>
                     <li><a asp-area="" asp-controller="Consumers" asp-action="Edit">Edit Your Info</a></li>
                     <li><a asp-area="" asp-controller="Consumers" asp-action="BusinessIndex">View Businesses</a></li>
+<<<<<<< HEAD
                     @*<li><a asp-area="" asp-controller="Chat" asp-action="Index">Contact</a></li>*@
                    @*use this button to access favorited business*@
+=======
+                    <li><a asp-area="" asp-controller="Chat" asp-action="Index">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Consumers" asp-action="SavedBusinesses">Saved Businesses</a></li>
+>>>>>>> 426896c74fc3d6126035830efc9954d48cd8b3da
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

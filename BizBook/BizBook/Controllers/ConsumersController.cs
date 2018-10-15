@@ -190,5 +190,14 @@ namespace BizBook.Controllers
                 return View(businessProfile);
             }
         }
+
+        public async Task<IActionResult> SavedBusinesses()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.Consumer
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            var consumerId = user.ConsumerID;
+            return View(await _context.SavedBusiness.Where(c => c.ConsumerId == consumerId).ToListAsync());
+        }
     }
 }

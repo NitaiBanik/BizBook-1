@@ -1,8 +1,9 @@
 ﻿
 @{
     ViewData["Title"] = "Home Page";
-}
 
+}
+       
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -11,7 +12,11 @@
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="@{"newCarouselImage"}" alt="ASP.NET" class="img-responsive" />
+
+        <img src="~/images/download.png"/>" alt="ASP.NET" class="img-responsive" />
+
+            @*<img src="@{"newCarouselImage"}" alt="ASP.NET" class="img-responsive" />*@
+
             <div class="carousel-caption" role="option">
                 <p>
                     Learn how to build ASP.NET apps that can run anywhere.

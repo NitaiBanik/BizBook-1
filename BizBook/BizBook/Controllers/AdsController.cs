@@ -21,7 +21,6 @@ namespace BizBook.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment he;
         private readonly UserManager<IdentityUser> _userManager;
-        public string newHomePageImage;
 
 
         public AdsController(ApplicationDbContext context, IHostingEnvironment e, UserManager<IdentityUser> userManager)
@@ -261,9 +260,6 @@ namespace BizBook.Controllers
                     _context.Update(ad);
                    
                     await _context.SaveChangesAsync();
-
-                    newHomePageImage = ad.CarouselImage;
-
 
                     //pic.CopyTo(new FileStream(fileName, FileMode.Create));
                     //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);

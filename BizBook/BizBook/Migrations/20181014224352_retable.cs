@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BizBook.Migrations
 {
-    public partial class readdAllTables : Migration
+    public partial class retable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -237,33 +237,6 @@ namespace BizBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BusinessProfile",
-                columns: table => new
-                {
-                    BusinessID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BusinessName = table.Column<string>(nullable: true),
-                    BusinessType = table.Column<string>(nullable: true),
-                    StreetAddress = table.Column<string>(nullable: true),
-                    CityStateZip = table.Column<string>(nullable: true),
-                    BusinessBio = table.Column<string>(nullable: true),
-                    Promotions = table.Column<string>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    Image1 = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BusinessProfile", x => x.BusinessID);
-                    table.ForeignKey(
-                        name: "FK_BusinessProfile_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Consumer",
                 columns: table => new
                 {
@@ -283,6 +256,40 @@ namespace BizBook.Migrations
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BusinessProfile",
+                columns: table => new
+                {
+                    BusinessID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BusinessName = table.Column<string>(nullable: true),
+                    BusinessType = table.Column<string>(nullable: true),
+                    StreetAddress = table.Column<string>(nullable: true),
+                    CityStateZip = table.Column<string>(nullable: true),
+                    BusinessBio = table.Column<string>(nullable: true),
+                    Promotions = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    Image1 = table.Column<string>(nullable: true),
+                    ConsumerID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessProfile", x => x.BusinessID);
+                    table.ForeignKey(
+                        name: "FK_BusinessProfile_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_BusinessProfile_Consumer_ConsumerID",
+                        column: x => x.ConsumerID,
+                        principalTable: "Consumer",
+                        principalColumn: "ConsumerID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -336,6 +343,11 @@ namespace BizBook.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BusinessProfile_ConsumerID",
+                table: "BusinessProfile",
+                column: "ConsumerID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Consumer_ApplicationUserId",
                 table: "Consumer",
                 column: "ApplicationUserId");
@@ -368,9 +380,6 @@ namespace BizBook.Migrations
                 name: "BusinessProfile");
 
             migrationBuilder.DropTable(
-                name: "Consumer");
-
-            migrationBuilder.DropTable(
                 name: "Groups");
 
             migrationBuilder.DropTable(
@@ -381,6 +390,9 @@ namespace BizBook.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Consumer");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -16,9 +16,9 @@ namespace BizBook.Controllers
     public class GroupController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public GroupController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public GroupController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -72,13 +72,13 @@ namespace BizBook.Controllers
             }
             var options = new PusherOptions
             {
-                Cluster = "PUSHER_APP_CLUSTER",
+                Cluster = "us2",
                 Encrypted = true
             };
             var pusher = new Pusher(
-                "PUSHER_APP_ID",
-                "PUSHER_APP_KEY",
-                "PUSHER_APP_SECRET",
+                "620160",
+                "87c7848afc7bbeaf081c",
+                "7e6906f867f9e88df0d2",
             options);
             var result = await pusher.TriggerAsync(
                 "group_chat", //channel name
