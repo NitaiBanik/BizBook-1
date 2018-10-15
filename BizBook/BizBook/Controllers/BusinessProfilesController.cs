@@ -219,16 +219,19 @@ namespace BizBook.Controllers
                 if (pic != null)
                 {
                     var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+                pic.CopyTo(new FileStream(fileName, FileMode.Create));
 
-                    var userid= User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userid= User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var businessProfile =  _context.BusinessProfile
                         .FirstOrDefault(m => m.ApplicationUserId == userid);
 
                     businessProfile.Image1 = fileName;
                     _context.Update(businessProfile);
                     _context.SaveChangesAsync();
-                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
-                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+
+                ViewBag.ProfileImage = businessProfile.Image1;
+               
+                    //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
                 }
             // test comment
             return View(); 

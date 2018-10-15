@@ -103,8 +103,8 @@ function reloadGroup() {
 }
 let currentGroupId = null;
 
-var pusher = new Pusher('PUSHER_APP_KEY', {
-    cluster: 'PUSHER_APP_CLUSTER',
+var pusher = new Pusher('87c7848afc7bbeaf081c', {
+    cluster: 'us2',
     encrypted: true
 });
 

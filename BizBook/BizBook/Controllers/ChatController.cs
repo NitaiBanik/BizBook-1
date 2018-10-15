@@ -13,10 +13,10 @@ namespace BizBook.Controllers
     [Authorize]
     public class ChatController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _GroupContext;
         public ChatController(
-          UserManager<ApplicationUser> userManager,
+          UserManager<IdentityUser> userManager,
           ApplicationDbContext context
           )
         {

@@ -14,16 +14,19 @@ namespace BizBook.Controllers
     public class MessageController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        public MessageController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        private readonly UserManager<IdentityUser> _userManager;
+        private int memberId;
+        public MessageController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
+            memberId = 0;
         }
 
         [HttpGet("{group_id}")]
         public IEnumerable<Message> GetById(int group_id)
         {
+            memberId = group_id;
             return _context.Message.Where(gb => gb.GroupId == group_id);
         }
         [HttpPost]
@@ -35,13 +38,13 @@ namespace BizBook.Controllers
             _context.SaveChanges();
             var options = new PusherOptions
             {
-                Cluster = "PUSHER_APP_CLUSTER",
+                Cluster = "us2",
                 Encrypted = true
             };
             var pusher = new Pusher(
-                "PUSHER_APP_ID",
-                "PUSHER_APP_KEY",
-                "PUSHER_APP_SECRET",
+                "620160",
+                "87c7848afc7bbeaf081c",
+                "7e6906f867f9e88df0d2",
                 options
             );
             var result = await pusher.TriggerAsync(
