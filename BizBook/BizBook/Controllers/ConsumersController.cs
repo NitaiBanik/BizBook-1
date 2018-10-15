@@ -179,6 +179,19 @@ namespace BizBook.Controllers
         {
             return _context.Consumer.Any(e => e.ConsumerID == id);
         }
+        public IActionResult Map(int? id)
+        {
+            {
+                var businessProfile = _context.BusinessProfile.Where(b => b.BusinessID == id).FirstOrDefault();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+                ViewBag.CustomerAddress = businessProfile.StreetAddress;
+                ViewBag.CustomerZip = businessProfile.CityStateZip;
+                return View(businessProfile);
+            }
+        }
 
         public async Task<IActionResult> SavedBusinesses()
         {

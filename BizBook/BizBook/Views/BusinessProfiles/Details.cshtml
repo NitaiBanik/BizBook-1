@@ -46,6 +46,7 @@
         <dd>
             @Html.DisplayFor(model => model.Promotions)
         </dd>
+        @Html.HiddenFor(model => model.ApplicationUserId)
         <dt>
             @*str.Link(@model.Link)*@
         </dt>
@@ -57,14 +58,17 @@
     </dl>
 </div>
 <div>
+
+    <a asp-action="UploadImage" asp-route-id="@Model.BusinessID">Upload Image</a>|
+
     @*<img src="@Image1>*@
 </div>
 <div>
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
     <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
+    <a asp-action="Details" asp-route-id="@Model.BusinessID">Details</a> |
     <a asp-action="UploadImage" asp-route-id="@Model.BusinessID">Upload Image</a>
-  
 </div>
 
 <div class="container">

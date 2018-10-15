@@ -105,6 +105,13 @@ namespace BizBook.Controllers
         // GET: BusinessProfiles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+           
+
             var userId = _userManager.GetUserId(HttpContext.User);
             var user = await _context.BusinessProfile
                 .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
@@ -113,6 +120,7 @@ namespace BizBook.Controllers
             //{
             //    return NotFound();
             //}
+
             if (user == null)
             {
                 return NotFound();
