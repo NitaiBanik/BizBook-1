@@ -2,7 +2,7 @@
 
 namespace BizBook.Migrations
 {
-    public partial class updatedisplay : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

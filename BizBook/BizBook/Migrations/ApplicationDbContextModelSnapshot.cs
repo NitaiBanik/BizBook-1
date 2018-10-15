@@ -44,8 +44,11 @@ namespace BizBook.Migrations
 
             modelBuilder.Entity("BizBook.Models.BlogPost", b =>
                 {
-                    b.Property<string>("ID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId");
 
                     b.Property<string>("BusinessName");
 
@@ -58,6 +61,8 @@ namespace BizBook.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("BlogPost");
                 });
@@ -362,6 +367,14 @@ namespace BizBook.Migrations
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BizBook.Models.BlogPost", b =>
+                {
+                    b.HasOne("BizBook.Models.BusinessProfile", "BusinessProfile")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BizBook.Models.BusinessProfile", b =>

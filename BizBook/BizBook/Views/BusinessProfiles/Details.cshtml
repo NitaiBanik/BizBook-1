@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Model.BusinessName</h2>
 
 <div>
     <h4>BusinessProfile</h4>
@@ -46,6 +46,7 @@
         <dd>
             @Html.DisplayFor(model => model.Promotions)
         </dd>
+        @Html.HiddenFor(model => model.ApplicationUserId)
         <dt>
             @*str.Link(@model.Link)*@
         </dt>
@@ -57,20 +58,20 @@
     </dl>
 </div>
 
+
 <dd>
-    @*<img src="~/38139422_10102593859577006_6086567643161034752_n.jpg" height="200px" width="300px" />*@
-    @Model.Image1
 
             <img src="~/@Model.Image1" height="200px" width="300px" />
 
 </dd>
 
+
 <div>
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
     <a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
+    <a asp-action="Details" asp-route-id="@Model.BusinessID">Details</a> |
     <a asp-action="UploadImage" asp-route-id="@Model.BusinessID">Upload Image</a>
-  
 </div>
 
 <div class="container">

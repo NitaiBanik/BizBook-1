@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181015011814_update display")]
-    partial class updatedisplay
+    [Migration("20181015180853_initialmigration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,11 @@ namespace BizBook.Migrations
 
             modelBuilder.Entity("BizBook.Models.BlogPost", b =>
                 {
-                    b.Property<string>("ID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId");
 
                     b.Property<string>("BusinessName");
 
@@ -60,6 +63,8 @@ namespace BizBook.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("BlogPost");
                 });
@@ -364,6 +369,14 @@ namespace BizBook.Migrations
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BizBook.Models.BlogPost", b =>
+                {
+                    b.HasOne("BizBook.Models.BusinessProfile", "BusinessProfile")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BizBook.Models.BusinessProfile", b =>

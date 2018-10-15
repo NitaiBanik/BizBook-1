@@ -12,7 +12,7 @@ namespace BizBook.Models
         [Key]
         public int BusinessID { get; set; }
 
-        [Display(Name = "Name of Your Business")]
+        [Display(Name = "Name of Business")]
         public string BusinessName { get; set; }
 
         [Display(Name = "Type of Business")]

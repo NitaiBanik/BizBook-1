@@ -4,7 +4,7 @@
     ViewData["Title"] = "BusinessDetails";
 }
 
-<h2>Details</h2>
+<h2>@Model.BusinessName</h2>
 
 <div>
     <h4>BusinessProfile</h4>
@@ -54,14 +54,22 @@
                 @Model.Link
             </a>
         </dd>
+
     </dl>
 </div>
+<dd>
+
+    <img src="~/@Model.Image1" height="200px" width="300px" />
+
+</dd>
+
 <div>
 
+    @*make save button*@
+    <a asp-action="AddSavedBusiness" asp-route-id="@Model.BusinessID">Follow This Business</a> |
 
-    <a asp-action="Details" asp-route-id="@Model.BusinessID">View Profile</a> |
     <a asp-action="Map" asp-route-id="@Model.BusinessID">See Location</a> |
     @*<a asp-action="Delete" asp-route-id="@Model.BusinessID">Delete</a>|
-    <a asp-action="Ads.Create" asp-route-id="@Model.BusinessID"> Advertise </a>*@
+        <a asp-action="Ads.Create" asp-route-id="@Model.BusinessID"> Advertise </a>*@
     @*<a asp-action="Index">Back to List</a>*@
 </div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181014230659_alter models")]
-    partial class altermodels
+    [Migration("20181015175845_updateModelKey")]
+    partial class updateModelKey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,11 @@ namespace BizBook.Migrations
 
             modelBuilder.Entity("BizBook.Models.BlogPost", b =>
                 {
-                    b.Property<string>("ID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId");
 
                     b.Property<string>("BusinessName");
 
@@ -60,6 +63,8 @@ namespace BizBook.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("BlogPost");
                 });
@@ -146,6 +151,25 @@ namespace BizBook.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Message");
+                });
+
+            modelBuilder.Entity("BizBook.Models.SavedBusiness", b =>
+                {
+                    b.Property<int>("SavedBusinessId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId");
+
+                    b.Property<int>("ConsumerId");
+
+                    b.HasKey("SavedBusinessId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("ConsumerId");
+
+                    b.ToTable("SavedBusiness");
                 });
 
             modelBuilder.Entity("BizBook.Models.UserGroup", b =>
@@ -347,6 +371,14 @@ namespace BizBook.Migrations
                         .HasForeignKey("ApplicationUserId");
                 });
 
+            modelBuilder.Entity("BizBook.Models.BlogPost", b =>
+                {
+                    b.HasOne("BizBook.Models.BusinessProfile", "BusinessProfile")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("BizBook.Models.BusinessProfile", b =>
                 {
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
@@ -359,6 +391,19 @@ namespace BizBook.Migrations
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BizBook.Models.SavedBusiness", b =>
+                {
+                    b.HasOne("BizBook.Models.BusinessProfile", "businessProfile")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BizBook.Models.Consumer", "Consumer")
+                        .WithMany()
+                        .HasForeignKey("ConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
