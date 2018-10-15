@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BizBook.Models.SavedBusiness>
+﻿@model IEnumerable<BizBook.Models.NewsfeedJunctionTable>
 
 @{
     ViewData["Title"] = "View";
@@ -16,9 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.businessProfile.BusinessName)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Consumer)
-            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.blogPost)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -28,9 +28,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.businessProfile.BusinessName)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Consumer.ConsumerID)
-            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.blogPost)
+            </td>
             @*<td>
                 <a asp-action="Edit" asp-route-id="@item.SavedBusinessId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.SavedBusinessId">Details</a> |

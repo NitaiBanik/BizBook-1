@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181015161337_update model keys")]
-    partial class updatemodelkeys
+    [Migration("20181015204017_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

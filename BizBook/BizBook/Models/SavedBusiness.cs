@@ -20,8 +20,8 @@ namespace BizBook.Models
         public int ConsumerId { get; set; }
         public Consumer Consumer { get; set; }
 
-        //[ForeignKey("BlogPost")]
-        //public int BlogPostId { get; set; }
-        //public BlogPost BlogPost { get; set; }
+        //    [ForeignKey("BlogPost")]
+        //    public int BlogPostId { get; set; }
+        //    public BlogPost BlogPost { get; set; }
     }
 }

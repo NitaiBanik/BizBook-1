@@ -7,14 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BizBook.Data;
 using BizBook.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace BizBook.Controllers
 {
     public class BlogPostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        UserManager<IdentityUser> _userManager;
 
-        public BlogPostsController(ApplicationDbContext context)
+        public BlogPostsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
         }
@@ -54,10 +57,16 @@ namespace BizBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Content,PubDate,LastEdited,BusinessName")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("ID,BusinessID,Title,Content,PubDate,LastEdited,BusinessName")] BlogPost blogPost)
         {
+            //var userId = _userManager.GetUserId(HttpContext.User);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.BusinessProfile
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            var businessId = user.BusinessID;
             if (ModelState.IsValid)
             {
+                blogPost.BusinessId = businessId;
                 _context.Add(blogPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
