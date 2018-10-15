@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Model.BusinessName</h2>
 
 <div>
     <h4>BusinessProfile</h4>
@@ -57,12 +57,15 @@
         </dd>
     </dl>
 </div>
-<div>
 
-    <a asp-action="UploadImage" asp-route-id="@Model.BusinessID">Upload Image</a>|
 
-    @*<img src="@Image1>*@
-</div>
+<dd>
+
+            <img src="~/@Model.Image1" height="200px" width="300px" />
+
+</dd>
+
+
 <div>
 
     <a asp-action="Edit" asp-route-id="@Model.BusinessID">Edit</a> |
