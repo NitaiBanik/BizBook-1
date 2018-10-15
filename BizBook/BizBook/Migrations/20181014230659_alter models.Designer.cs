@@ -4,14 +4,16 @@ using BizBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181014230659_alter models")]
+    partial class altermodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,25 +146,6 @@ namespace BizBook.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Message");
-                });
-
-            modelBuilder.Entity("BizBook.Models.SavedBusiness", b =>
-                {
-                    b.Property<int>("SavedBusinessId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BusinessId");
-
-                    b.Property<int>("ConsumerId");
-
-                    b.HasKey("SavedBusinessId");
-
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("ConsumerId");
-
-                    b.ToTable("SavedBusiness");
                 });
 
             modelBuilder.Entity("BizBook.Models.UserGroup", b =>
@@ -376,19 +359,6 @@ namespace BizBook.Migrations
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("BizBook.Models.SavedBusiness", b =>
-                {
-                    b.HasOne("BizBook.Models.BusinessProfile", "businessProfile")
-                        .WithMany()
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BizBook.Models.Consumer", "Consumer")
-                        .WithMany()
-                        .HasForeignKey("ConsumerId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

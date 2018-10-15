@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181012194035_initial")]
-    partial class initial
+    [Migration("20181015011814_update display")]
+    partial class updatedisplay
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -146,6 +146,25 @@ namespace BizBook.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Message");
+                });
+
+            modelBuilder.Entity("BizBook.Models.SavedBusiness", b =>
+                {
+                    b.Property<int>("SavedBusinessId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BusinessId");
+
+                    b.Property<int>("ConsumerId");
+
+                    b.HasKey("SavedBusinessId");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("ConsumerId");
+
+                    b.ToTable("SavedBusiness");
                 });
 
             modelBuilder.Entity("BizBook.Models.UserGroup", b =>
@@ -359,6 +378,19 @@ namespace BizBook.Migrations
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("BizBook.Models.SavedBusiness", b =>
+                {
+                    b.HasOne("BizBook.Models.BusinessProfile", "businessProfile")
+                        .WithMany()
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BizBook.Models.Consumer", "Consumer")
+                        .WithMany()
+                        .HasForeignKey("ConsumerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
