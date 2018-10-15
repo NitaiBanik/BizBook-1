@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181012195841_readdAllTables")]
-    partial class readdAllTables
+    [Migration("20181014224352_retable")]
+    partial class retable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,6 +80,8 @@ namespace BizBook.Migrations
 
                     b.Property<string>("CityStateZip");
 
+                    b.Property<int?>("ConsumerID");
+
                     b.Property<string>("Image1");
 
                     b.Property<string>("Link");
@@ -91,6 +93,8 @@ namespace BizBook.Migrations
                     b.HasKey("BusinessID");
 
                     b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ConsumerID");
 
                     b.ToTable("BusinessProfile");
                 });
@@ -352,6 +356,10 @@ namespace BizBook.Migrations
                     b.HasOne("BizBook.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("BizBook.Models.Consumer")
+                        .WithMany("SavedBusinesses")
+                        .HasForeignKey("ConsumerID");
                 });
 
             modelBuilder.Entity("BizBook.Models.Consumer", b =>
