@@ -24,13 +24,13 @@ namespace BizBook.Models
         [Display(Name = "City, State, Zip")]
         public string CityStateZip { get; set; }
 
-        [Display(Name = "Give a brief description of your business and the services you offer.")]
+        [Display(Name = "Description")]
         public string BusinessBio { get; set; }
 
-        [Display(Name = "List and Special promotions of cupons here")]
+        [Display(Name = "Promos")]
         public string Promotions { get; set; }
 
-        [Display(Name = "Link to your website.")]
+        [Display(Name = "Click Link to Learn More")]
         public string Link { get; set; }
 
         [ForeignKey("ApplicationUser")]
