@@ -6,17 +6,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BizBook.Models;
 using System.Security.Claims;
+using BizBook.Data;
 
 namespace BizBook.Controllers
 {
     public class HomeController : Controller
     {
-        public string newHomePageImage;
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            //pass ad object here that has ad property
-            return View();
+
+            var ad = _context.Ad
+                .FirstOrDefault(m => m.CarouselImage != null);
+
+            return View(ad);
         }
 
         public IActionResult About()

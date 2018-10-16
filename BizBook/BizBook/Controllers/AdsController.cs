@@ -196,42 +196,22 @@ namespace BizBook.Controllers
         {
             return _context.Ad.Any(e => e.AdID == id);
         }
-        public IActionResult Payment()
+        public IActionResult Payment(int ?id)
         {
-            return View();
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var ad = _context.Ad
+                .FirstOrDefault(m => m.ApplicationUserId == userid);
+            return View(ad);
         }
 
-        //[HttpPost]
-        //public IActionResult Payment(string stripeEmail, string stripeToken)
-        //{
-        //    var customers = new StripeCustomerService();
-        //    var charges = new StripeChargeService();
-
-        //    var customer = customers.Create(new StripeCustomerCreateOptions
-        //    {
-        //        Email = stripeEmail,
-        //        SourceToken = stripeToken
-        //    });
-
-        //    var charge = charges.Create(new StripeChargeCreateOptions
-        //    {
-        //        Amount = 50,
-        //        Description = "Sample Charge",
-        //        Currency = "usd",
-        //        CustomerId = customer.Id
-        //    });
-
-            // set payment collected equal to true
-
-        //    return RedirectToAction("UploadCarouselImage");
-        //}
+       
         public IActionResult UploadCarouselImage()
         {
             return View();
         }
         
             [HttpPost]
-        public async Task<IActionResult> UploadCarouselImage(string fullName, IFormFile pic, int ?id)
+        public IActionResult UploadCarouselImage(string fullName, IFormFile pic, int ?id)
         {
             {
 
@@ -244,9 +224,11 @@ namespace BizBook.Controllers
                 if (pic != null)
               
                 {
+                    var fullPath = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
+                    var fileName = pic.FileName;
 
-                    var fileName = Path.Combine(he.WebRootPath, Path.GetFileName(pic.FileName));
-                    pic.CopyTo(new FileStream(fileName, FileMode.Create));
+
+                    pic.CopyTo(new FileStream(fullPath, FileMode.Create));
 
 
 
@@ -254,20 +236,27 @@ namespace BizBook.Controllers
                     var ad = _context.Ad
                         .FirstOrDefault(m => m.ApplicationUserId == userid);
 
-                    ad.PaymentCollected = true;
                     ad.CarouselImage = fileName;
+                    ad.PaymentCollected = true;
                     
                     _context.Update(ad);
                    
-                    await _context.SaveChangesAsync();
-
-                    //pic.CopyTo(new FileStream(fileName, FileMode.Create));
-                    //ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
+                    _context.SaveChangesAsync();
+                    ViewData["FileLocation"] = "/" + Path.GetFileName(pic.FileName);
 
                 }
             }
             return View();
         }
-
+        public IActionResult CreateSponseredAd()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateSponseredAd(int ?id)
+        {
+                               
+                return View("Create(BlogPost)");
+        }
     }
 }
