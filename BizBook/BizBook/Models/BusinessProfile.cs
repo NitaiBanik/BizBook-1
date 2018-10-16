@@ -24,6 +24,15 @@ namespace BizBook.Models
         [Display(Name = "City, State, Zip")]
         public string CityStateZip { get; set; }
 
+<<<<<<< HEAD
+        [Display(Name = "Description")]
+        public string BusinessBio { get; set; }
+
+        [Display(Name = "Promos")]
+        public string Promotions { get; set; }
+
+        [Display(Name = "Click Link to Learn More")]
+=======
         [Display(Name = "Business Bio")]
         public string BusinessBio { get; set; }
 
@@ -31,6 +40,7 @@ namespace BizBook.Models
         public string Promotions { get; set; }
 
         [Display(Name = "Website Link")]
+>>>>>>> 45a9604ee67fb55446a3b0a655e89b90b008e72e
         public string Link { get; set; }
 
         [ForeignKey("ApplicationUser")]
