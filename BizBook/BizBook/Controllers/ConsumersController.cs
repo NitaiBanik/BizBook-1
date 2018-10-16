@@ -49,6 +49,30 @@ namespace BizBook.Controllers
         }
         public IActionResult BusinessDetails(int? id)
         {
+            var mvcName = typeof(Controller).Assembly.GetName();
+            var isMono = Type.GetType("Mono.Runtime") != null;
+
+            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor;
+            ViewData["Runtime"] = isMono ? "Mono" : ".NET";
+
+            ViewBag.Title = "Views Dot Net | A pusher - .Net Tutorial";
+
+            var visitors = 0;
+
+            if (System.IO.File.Exists("visitors.txt"))
+            {
+                string noOfVisitors = System.IO.File.ReadAllText("visitors.txt");
+                visitors = Int32.Parse(noOfVisitors);
+            }
+
+            ++visitors;
+
+            var visit_text = (visitors == 1) ? " view" : " views";
+            System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
+
+            ViewData["visitors"] = visitors;
+            ViewData["visitors_txt"] = visit_text;
+   
             var businessProfile = _context.BusinessProfile.Where(b => b.BusinessID == id).FirstOrDefault();                
             if (id == null)
             {
@@ -229,7 +253,10 @@ namespace BizBook.Controllers
             savedBusiness.ConsumerId = consumerId;
             _context.Add(savedBusiness);
             await _context.SaveChangesAsync();
+            return RedirectToAction("BusinessIndex");
+
             return View("BusinessIndex");
+
 
             if (user == null)
             {
