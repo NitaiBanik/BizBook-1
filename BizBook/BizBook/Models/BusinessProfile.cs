@@ -12,7 +12,7 @@ namespace BizBook.Models
         [Key]
         public int BusinessID { get; set; }
 
-        [Display(Name = "Name of Business")]
+        [Display(Name = "Business Name")]
         public string BusinessName { get; set; }
 
         [Display(Name = "Type of Business")]
@@ -24,13 +24,13 @@ namespace BizBook.Models
         [Display(Name = "City, State, Zip")]
         public string CityStateZip { get; set; }
 
-        [Display(Name = "Give a brief description of your business and the services you offer.")]
+        [Display(Name = "Business Bio")]
         public string BusinessBio { get; set; }
 
-        [Display(Name = "List and Special promotions of cupons here")]
+        [Display(Name = "Current Promotions")]
         public string Promotions { get; set; }
 
-        [Display(Name = "Link to your website.")]
+        [Display(Name = "Website Link")]
         public string Link { get; set; }
 
         [ForeignKey("ApplicationUser")]

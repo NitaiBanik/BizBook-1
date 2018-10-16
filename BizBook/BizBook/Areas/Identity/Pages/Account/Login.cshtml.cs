@@ -144,7 +144,7 @@ namespace BizBook.Areas.Identity.Pages.Account
                 else
                 {
                     var userId = user.Id;
-                    return RedirectToAction("Index", "Consumers", new { Id = userId });
+                    return RedirectToAction("SavedBusinesses", "Consumers", new { Id = userId });
                 }
             }
             else

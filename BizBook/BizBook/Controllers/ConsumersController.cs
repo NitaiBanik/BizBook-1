@@ -193,26 +193,30 @@ namespace BizBook.Controllers
             }
         }
 
+        public async Task<IActionResult> SavedBusinesses()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = await _context.Consumer
+                .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
+            var consumerId = user.ConsumerID;
+            var savedBusinessId = await _context.SavedBusiness.Include(m => m.businessProfile).Where(c => c.ConsumerId == consumerId).ToListAsync();
+            return View(savedBusinessId);
+        }
+
         //public async Task<IActionResult> SavedBusinesses()
         //{
         //    var userId = _userManager.GetUserId(HttpContext.User);
         //    var user = await _context.Consumer
         //        .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
         //    var consumerId = user.ConsumerID;
-        //    var savedBusinessId = await _context.SavedBusiness.Include(m => m.businessProfile).Where(c => c.ConsumerId == consumerId).ToListAsync();
-        //    return View(savedBusinessId);
+        //    //var savedBusinesses = 
+
+        //    NewsfeedJunctionTable newsfeedJunctionTable = new NewsfeedJunctionTable();
+
+        //    newsfeedJunctionTable.savedBusiness = _context.SavedBusiness.Where(c => c.ConsumerId == consumerId);
+        //    newsfeedJunctionTable.blogPost = _context.BlogPost.Where(b => b.)
+        //    return View();
         //}
-
-        public async Task<IActionResult> SavedBusinesses()
-        {
-            //var userId = _userManager.GetUserId(HttpContext.User);
-            //var user = await _context.Consumer
-            //    .FirstOrDefaultAsync(m => m.ApplicationUserId == userId);
-            //var consumerId = user.ConsumerID;
-            //var savedBusinesses = 
-
-            return View();
-        }
 
         public async Task<IActionResult> AddSavedBusiness(int id)
         {
