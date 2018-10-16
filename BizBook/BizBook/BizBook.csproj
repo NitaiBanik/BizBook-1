@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.-cerulean.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Views\BusinessProfiles\test.jpg" />
   </ItemGroup>
 

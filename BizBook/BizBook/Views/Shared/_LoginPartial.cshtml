@@ -19,6 +19,8 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
+        @*<button type="Button" class="btn btn-primary"> @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
+        <button type="/Account/Login" class="btn btn-primary">Login</button>*@
         <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
         <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
     </ul>
