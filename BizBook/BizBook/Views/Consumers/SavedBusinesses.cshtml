@@ -1,11 +1,11 @@
-﻿@model IEnumerable<BizBook.Models.NewsfeedJunctionTable>
+﻿@model IEnumerable<BizBook.Models.SavedBusiness>
 
 @{
     ViewData["Title"] = "View";
     Layout = "~/Views/Shared/_ConsumerView.cshtml";
 }
 
-<h2>Saved Businesses</h2>
+<h2>My Businesses</h2>
 
 <p>
     @*<a asp-action="Create">Create New</a>*@
@@ -17,9 +17,21 @@
                 @Html.DisplayNameFor(model => model.businessProfile.BusinessName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.blogPost)
+                @Html.DisplayNameFor(Model => Model.businessProfile.BusinessType)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.businessProfile.StreetAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.businessProfile.CityStateZip)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.businessProfile.BusinessBio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.businessProfile.Promotions)
+            </th>
+                <th></th>
         </tr>
     </thead>
     <tbody>
@@ -29,9 +41,21 @@
                 @Html.DisplayFor(modelItem => item.businessProfile.BusinessName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.blogPost)
+                @Html.DisplayFor(modelItem => item.businessProfile.BusinessType)
             </td>
-            @*<td>
+            <td>
+                @Html.DisplayFor(modelItem => item.businessProfile.StreetAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.businessProfile.CityStateZip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.businessProfile.BusinessBio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.businessProfile.Promotions)
+            </td>
+                @*<td>
                 <a asp-action="Edit" asp-route-id="@item.SavedBusinessId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.SavedBusinessId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.SavedBusinessId">Delete</a>
